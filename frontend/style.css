@@ -1,4 +1,127 @@
 *{
-    padding: 0;
-    margin: 0;
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, sans-serif;
+}
+
+body{
+background:#F4F1E8;
+color:#222222;
+height:100vh;
+}
+
+.contenedor{
+display:flex;
+height:100vh;
+}
+
+aside{
+width:250px;
+background:#BFD8B8;
+padding:20px;
+display:flex;
+flex-direction:column;
+gap:20px;
+}
+
+aside h2{
+color:#222222;
+}
+
+aside button{
+padding:12px;
+border:none;
+border-radius:15px;
+background:#D98C2B;
+color:white;
+font-weight:bold;
+cursor:pointer;
+}
+
+nav{
+display:flex;
+flex-direction:column;
+gap:10px;
+}
+
+nav p{
+padding:12px;
+border-radius:10px;
+cursor:pointer;
+}
+
+nav p:hover{
+background:#6E9F67;
+color:white;
+}
+
+.estado{
+margin-top:auto;
+padding:15px;
+background:#E3D2C3;
+border-radius:15px;
+}
+
+main{
+flex:1;
+display:flex;
+flex-direction:column;
+height:100vh;
+padding:20px;
+}
+
+.mensajes{
+flex:1;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+max-width:700px;
+margin:auto;
+}
+
+.mensajes h1{
+color:#6E9F67;
+margin-bottom:20px;
+font-size:3rem;
+}
+
+.mensajes p{
+margin-bottom:10px;
+line-height:1.6;
+}
+
+.chat{
+display:flex;
+gap:10px;
+width:100%;
+max-width:900px;
+margin:0 auto;
+padding-bottom:20px;
+}
+
+.chat input{
+flex:1;
+padding:15px;
+border:none;
+border-radius:25px;
+background:white;
+outline:none;
+font-size:16px;
+}
+
+.chat button{
+padding:15px 25px;
+border:none;
+border-radius:25px;
+background:#D98C2B;
+color:white;
+font-weight:bold;
+cursor:pointer;
+}
+
+.chat button:hover{
+opacity:0.9;
 }
