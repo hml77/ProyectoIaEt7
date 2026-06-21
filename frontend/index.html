@@ -13,9 +13,9 @@
 
 <aside>
 
-<h2>IA Escuela Tenica N7 Dr Manuel Sadosky</h2>
+<h2>IA Escuela Técnica N°7 Dr. Manuel Sadosky</h2>
 
-<button>+ Nuevo Chat</button>
+<button onclick="nuevoChat()">+ Nuevo Chat</button>
 
 <nav>
 <p>Inicio</p>
@@ -46,11 +46,15 @@ Actualmente el sistema se encuentra en etapa de desarrollo.
 
 </div>
 
+<div id="mensajes-chat">
+
+</div>
+
 <div class="chat">
 
-<input type="text" placeholder="¿En qué puedo ayudarte?">
+<input id="mensaje" type="text" placeholder="¿En qué puedo ayudarte?">
 
-<button>Enviar</button>
+<button id="enviar">Enviar</button>
 
 </div>
 
@@ -58,5 +62,7 @@ Actualmente el sistema se encuentra en etapa de desarrollo.
 
 </div>
 
-</body>
+<script src="script.js"></script>
+
+</body>s
 </html>
