@@ -93,6 +93,12 @@ margin-bottom:10px;
 line-height:1.6;
 }
 
+#mensajes-chat{
+width:100%;
+max-width:900px;
+margin:20px auto;
+}
+
 .chat{
 display:flex;
 gap:10px;
