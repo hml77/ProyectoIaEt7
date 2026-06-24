@@ -4,7 +4,7 @@
 // Ejemplo: const IP_SERVIDOR = "192.168.1.105";
 // ============================================================
 const IP_SERVIDOR = "ACÁ VA LA IP DEL SERVIDOR";
-const URL_BACKEND = `http://${IP_SERVIDOR}:3000/chat`;
+const URL_BACKEND = `http://${192.168.0.100}:3000/chat`;
 
 // ============================================================
 // MEMORIA DE CHATS
@@ -20,7 +20,7 @@ let chatActivoIndex = null; // null = chat nuevo sin guardar todavía
 // ============================================================
 async function verificarServidor() {
   try {
-    const respuesta = await fetch(`http://${IP_SERVIDOR}:3000/`);
+    const respuesta = await fetch(`http://${192.168.0.100}:3000/`);
     if (respuesta.ok) {
       document.getElementById("estado-servidor").textContent = "🟢 Servidor En Línea";
       document.getElementById("estado-servidor").style.background = "#B8D4B0";
