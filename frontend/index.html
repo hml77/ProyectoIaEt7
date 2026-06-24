@@ -6,63 +6,31 @@
 <title>IA Escuela Técnica Manuel Sadosky</title>
 <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-
 <div class="contenedor">
 
-<aside>
+  <aside>
+    <h2>IA Escuela Técnica N°7 Dr. Manuel Sadosky</h2>
+    <button onclick="nuevoChat()">+ Nuevo Chat</button>
+    <div class="historial-titulo">Chats anteriores</div>
+    <nav id="historial-chats"></nav>
+    <div class="estado" id="estado-servidor">🔴 Servidor Desconectado</div>
+  </aside>
 
-<h2>IA Escuela Técnica N°7 Dr. Manuel Sadosky</h2>
-
-<button onclick="nuevoChat()">+ Nuevo Chat</button>
-
-<nav>
-<p>Inicio</p>
-<p>Sobre el Proyecto</p>
-<p>Estado del Servidor</p>
-</nav>
-
-<div class="estado">
-🟢 Servidor En Línea
-</div>
-
-</aside>
-
-<main>
-
-<div class="mensajes">
-
-<h1>Bienvenido</h1>
-
-<p>
-Este proyecto consiste en el desarrollo de una inteligencia artificial
-dentro de un servidor construido con componentes reciclados.
-</p>
-
-<p>
-Actualmente el sistema se encuentra en etapa de desarrollo.
-</p>
+  <main>
+    <div class="mensajes" id="pantalla-bienvenida">
+      <h1>Bienvenido</h1>
+      <p>Este proyecto consiste en el desarrollo de una inteligencia artificial dentro de un servidor construido con componentes reciclados.</p>
+      <p>Actualmente el sistema se encuentra en etapa de desarrollo.</p>
+    </div>
+    <div id="mensajes-chat"></div>
+    <div class="chat">
+      <input id="mensaje" type="text" placeholder="¿En qué puedo ayudarte?">
+      <button id="enviar">Enviar</button>
+    </div>
+  </main>
 
 </div>
-
-<div id="mensajes-chat">
-
-</div>
-
-<div class="chat">
-
-<input id="mensaje" type="text" placeholder="¿En qué puedo ayudarte?">
-
-<button id="enviar">Enviar</button>
-
-</div>
-
-</main>
-
-</div>
-
 <script src="script.js"></script>
-
-</body>s
+</body>
 </html>
