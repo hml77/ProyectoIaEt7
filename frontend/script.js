@@ -1,6 +1,5 @@
-
 const IP_SERVIDOR = "192.168.0.100";
-const URL_BACKEND = `http://${192.168.0.100}:3000/chat`;
+const URL_BACKEND = `http://${IP_SERVIDOR}:3000/chat`;
 
 // ============================================================
 // MEMORIA DE CHATS
@@ -17,12 +16,14 @@ let chatActivoIndex = null; // null = chat nuevo sin guardar todavía
 async function verificarServidor() {
   try {
     const respuesta = await fetch(`http://${IP_SERVIDOR}:3000/`);
+
     if (respuesta.ok) {
       document.getElementById("estado-servidor").textContent = "🟢 Servidor En Línea";
       document.getElementById("estado-servidor").style.background = "#B8D4B0";
     } else {
       throw new Error();
     }
+
   } catch {
     document.getElementById("estado-servidor").textContent = "🔴 Servidor Desconectado";
     document.getElementById("estado-servidor").style.background = "#E3C3C3";
