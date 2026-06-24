@@ -8,7 +8,7 @@ app.use(express.json());
 const MODELO = 'llama3';
 
 app.get('/', (req, res) => {
-  res.json({ estado: '✅ Backend funcionando correctamente' });
+  res.json({ estado: 'Backend funcionando correctamente' });
 });
 
 app.post('/chat', async (req, res) => {
@@ -45,7 +45,7 @@ app.post('/chat', async (req, res) => {
 });
 
 app.listen(3000, () => {
-  console.log('✅ Backend iniciado correctamente');
-  console.log('🌐 Escuchando en http://localhost:3000');
-  console.log('🤖 Usando modelo: ' + MODELO);
+  console.log('Backend iniciado correctamente');
+  console.log('Escuchando en http://localhost:3000');
+  console.log('Usando modelo: ' + MODELO);
 });
