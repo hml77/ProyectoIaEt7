@@ -30,7 +30,7 @@ Pregunta:
     respuesta = requests.post(
         "http://localhost:11434/api/generate",
         json={
-            "model": "qwen2.5:3b",
+            "model": "llama3",
             "prompt": prompt,
             "stream": False
         }
