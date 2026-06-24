@@ -1,5 +1,10 @@
-const IP_SERVIDOR = "192.168.0.100";
-const URL_BACKEND = `http://${IP_SERVIDOR}:3000/chat`;
+// ============================================================
+// ⚠️ ÚNICA COSA QUE TENÉS QUE CAMBIAR:
+// Cuando el equipo servidor te dé la IP, reemplazala acá abajo
+// Ejemplo: const IP_SERVIDOR = "192.168.1.105";
+// ============================================================
+const IP_SERVIDOR = "ACÁ VA LA IP DEL SERVIDOR";
+const URL_BACKEND = "http://192.168.0.100:8000/";
 
 // ============================================================
 // MEMORIA DE CHATS
@@ -15,15 +20,13 @@ let chatActivoIndex = null; // null = chat nuevo sin guardar todavía
 // ============================================================
 async function verificarServidor() {
   try {
-    const respuesta = await fetch(`http://${IP_SERVIDOR}:3000/`);
-
+    const respuesta = await fetch("http://192.168.0.100:8000/");
     if (respuesta.ok) {
       document.getElementById("estado-servidor").textContent = "🟢 Servidor En Línea";
       document.getElementById("estado-servidor").style.background = "#B8D4B0";
     } else {
       throw new Error();
     }
-
   } catch {
     document.getElementById("estado-servidor").textContent = "🔴 Servidor Desconectado";
     document.getElementById("estado-servidor").style.background = "#E3C3C3";
@@ -219,7 +222,7 @@ async function enviarMensaje() {
 
   } catch (error) {
     quitarCargando();
-    agregarMensaje("❌ No se pudo conectar al servidor. ¿Está encendido?", "ia");
+    agregarMensaje("❌ No funca maestro", "ia");
     console.error("Error:", error);
   }
 
@@ -241,3 +244,4 @@ document.getElementById("mensaje").addEventListener("keydown", (e) => {
 
 // Cargar historial al abrir la página
 renderizarHistorial();
+// Actualizado
