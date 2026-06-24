@@ -4,7 +4,7 @@
 // Ejemplo: const IP_SERVIDOR = "192.168.1.105";
 // ============================================================
 const IP_SERVIDOR = "ACÁ VA LA IP DEL SERVIDOR";
-const URL_BACKEND = `("http://192.168.0.100:8000/");
+const URL_BACKEND = "http://192.168.0.100:8000/";
 
 // ============================================================
 // MEMORIA DE CHATS
