@@ -3,7 +3,7 @@
 // Cuando el equipo servidor te dé la IP, reemplazala acá abajo
 // Ejemplo: const IP_SERVIDOR = "192.168.1.105";
 // ============================================================
-const IP_SERVIDOR = "ACÁ VA LA IP DEL SERVIDOR";
+const IP_SERVIDOR = "192.168.0.100";
 const URL_BACKEND = "http://192.168.0.100:8000/chat";
 
 // ============================================================
@@ -244,4 +244,4 @@ document.getElementById("mensaje").addEventListener("keydown", (e) => {
 
 // Cargar historial al abrir la página
 renderizarHistorial();
-// Actualizado
+// Actualizado lol
