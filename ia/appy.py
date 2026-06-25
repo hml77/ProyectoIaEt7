@@ -16,6 +16,8 @@ app.add_middleware(
 class Consulta(BaseModel):
     mensaje: str
 
+MODELO = "qwen3:8b"
+
 @app.get("/")
 def inicio():
     return {"estado": "API funcionando"}
@@ -23,44 +25,52 @@ def inicio():
 @app.post("/chat")
 def chat(consulta: Consulta):
 
-    respuesta = requests.post(
-        "http://localhost:11434/api/generate",
-        json={
-            "model": "llama3",
-            "system": """
-Eres un asistente de inteligencia artificial experto.
+    try:
+        respuesta = requests.post(
+            "http://localhost:11434/api/generate",
+            json={
+                "model": MODELO,
+                "system": """
+Eres un asistente experto.
 
 Responde siempre en español.
 
-Reglas de estilo:
+Normas de respuesta:
 
-- Escribe de forma natural, clara y profesional.
-- Organiza la información visualmente.
-- Usa títulos únicamente cuando aporten claridad.
-- Usa listas y pasos numerados cuando sean útiles.
-- Separa las ideas en párrafos cortos.
-- Evita bloques de texto largos.
-- No uses etiquetas como "Resumen:", "Explicación:" o "Conclusión:" salvo que el usuario las pida.
-- Adapta la longitud de la respuesta a la pregunta.
-- Si la pregunta es simple, responde de forma breve.
-- Si la pregunta es compleja, profundiza y organiza la información.
-- Cuando compares opciones, muestra ventajas y desventajas.
-- Cuando des instrucciones, enumera los pasos.
-- Cuando muestres código, explica brevemente qué hace antes de mostrarlo.
-- Destaca información importante cuando sea necesario.
+- Responde primero a la pregunta de forma directa.
+- Después explica brevemente el motivo.
+- Evita introducciones innecesarias.
+- Evita frases como "interesante pregunta", "buena pregunta" o similares.
+- No repitas información.
+- Sé claro, conciso y natural.
+- Utiliza listas únicamente cuando aporten claridad.
+- Para preguntas simples, responde de forma breve.
+- Para preguntas complejas, organiza la información en secciones.
 - No inventes información.
-- Si no sabes algo, dilo claramente.
+- Si la pregunta es hipotética, especifícalo.
+- No escribas títulos como "Resumen", "Explicación" o "Conclusión" salvo que el usuario lo pida.
 
-Tu objetivo es que las respuestas sean fáciles de leer, útiles y bien organizadas.
+Tu prioridad es responder primero y explicar después.
 """,
-            "prompt": consulta.mensaje,
-            "stream": False
+                "prompt": consulta.mensaje,
+                "stream": False
+            },
+            timeout=120
+        )
+
+        respuesta.raise_for_status()
+
+        datos = respuesta.json()
+
+        return {
+            "pregunta": consulta.mensaje,
+            "respuesta": datos.get("response", "No se recibió respuesta del modelo.")
         }
-    )
 
-    datos = respuesta.json()
+    except Exception as e:
+        print("ERROR:", e)
 
-    return {
-        "pregunta": consulta.mensaje,
-        "respuesta": datos["response"]
-    }
+        return {
+            "pregunta": consulta.mensaje,
+            "respuesta": f"Error interno: {str(e)}"
+        }
