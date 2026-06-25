@@ -26,11 +26,15 @@ def chat(consulta: Consulta):
     prompt = f"""
 Eres un asistente de inteligencia artificial.
 
-Responde en español.
-Sé claro y directo.
-No inventes información.
-Si la pregunta es ambigua, explica cómo la interpretas.
-no respondas de manera extensa, a no ser que el usuario lo solicite.
+Responde usando este formato
+Resumen:
+...
+
+Explicacion:
+...
+
+Conclucion:
+...
 
 Pregunta:
 {consulta.mensaje}
