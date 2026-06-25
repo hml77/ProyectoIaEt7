@@ -3,6 +3,8 @@
 // Cuando el equipo servidor te dé la IP, reemplazala acá abajo
 // Ejemplo: const IP_SERVIDOR = "192.168.1.105";
 // ============================================================
+alert("ESTE ES EL SCRIPT DE /var/www/html");
+alert("ESTE ES EL SCRIPT DE frontend");
 const IP_SERVIDOR = "192.168.0.100";
 const URL_BACKEND = "http://192.168.0.100:8000/chat";
 
@@ -20,7 +22,7 @@ let chatActivoIndex = null; // null = chat nuevo sin guardar todavía
 // ============================================================
 async function verificarServidor() {
   try {
-    const respuesta = await fetch("http://192.168.0.100:8000/chat");
+    const respuesta = await fetch("http://192.168.0.100:8000/");
     if (respuesta.ok) {
       document.getElementById("estado-servidor").textContent = "🟢 Servidor En Línea";
       document.getElementById("estado-servidor").style.background = "#B8D4B0";
