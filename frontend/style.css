@@ -263,16 +263,53 @@ main {
 }
 
 pre {
-  background: #1e1e1e;
-  color: #ffffff;
-  padding: 12px;
-  border-radius: 10px;
-  overflow-x: auto;
-  margin-top: 10px;
+    background: #1e1e1e;
+    color: #f5f5f5;
+    padding: 15px;
+    border-radius: 12px;
+    overflow-x: auto;
+    margin: 12px 0;
+    font-size: 14px;
+    line-height: 1.5;
 }
 
 code {
-  font-family: Consolas, monospace;
+    font-family: Consolas, Monaco, monospace;
+}
+
+pre code {
+    background: transparent;
+    padding: 0;
+    color: inherit;
+}
+
+p code {
+    background: rgba(0,0,0,.08);
+    padding: 2px 5px;
+    border-radius: 5px;
+}
+
+ul,
+ol {
+    margin-left: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+h1,h2,h3,h4 {
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+table{
+    border-collapse:collapse;
+    width:100%;
+}
+
+table th,
+table td{
+    border:1px solid #ccc;
+    padding:8px;
 }
 
 /* ==========================================================

@@ -168,11 +168,14 @@ function agregarMensaje(texto, tipo) {
   const contenedor = document.getElementById("mensajes-chat");
   const burbuja = document.createElement("div");
   burbuja.classList.add("burbuja", tipo);
-  burbuja.textContent = texto;
+
+  // Renderizar Markdown
+  burbuja.innerHTML = marked.parse(texto);
+
   contenedor.appendChild(burbuja);
   contenedor.scrollTop = contenedor.scrollHeight;
 
-  // Guardar en memoria del chat actual
+  // Guardar el texto original
   chatActual.push({ texto, tipo });
 }
 
