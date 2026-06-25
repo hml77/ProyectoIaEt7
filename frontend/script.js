@@ -131,7 +131,7 @@ function cargarChat(index) {
   chatActual.forEach(({ texto, tipo }) => {
     const burbuja = document.createElement("div");
     burbuja.classList.add("burbuja", tipo);
-    burbuja.textContent = texto;
+    burbuja.innerHTML = marked.parse(texto);
     contenedor.appendChild(burbuja);
   });
 

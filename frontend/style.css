@@ -262,6 +262,19 @@ main {
   font-style: italic;
 }
 
+pre {
+  background: #1e1e1e;
+  color: #ffffff;
+  padding: 12px;
+  border-radius: 10px;
+  overflow-x: auto;
+  margin-top: 10px;
+}
+
+code {
+  font-family: Consolas, monospace;
+}
+
 /* ==========================================================
    TABLETS
 ========================================================== */
