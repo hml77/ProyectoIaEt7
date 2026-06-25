@@ -200,7 +200,7 @@ main {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: rgba(255,255,255,0.35);
+  background: rgba(255, 255, 255, 0.35);
   border-radius: 10px;
   padding: 8px 10px;
   cursor: pointer;
@@ -208,7 +208,7 @@ main {
 }
 
 .chat-guardado:hover {
-  background: rgba(255,255,255,0.6);
+  background: rgba(255, 255, 255, 0.6);
 }
 
 .chat-guardado.activo {
@@ -242,17 +242,17 @@ main {
 }
 
 .btn-borrar:hover {
-  background: rgba(0,0,0,0.1);
+  background: rgba(0, 0, 0, 0.1);
   color: #c00;
 }
 
 .chat-guardado.activo .btn-borrar {
-  color: rgba(255,255,255,0.7);
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .chat-guardado.activo .btn-borrar:hover {
   color: white;
-  background: rgba(0,0,0,0.2);
+  background: rgba(0, 0, 0, 0.2);
 }
 
 .sin-chats {
@@ -260,4 +260,141 @@ main {
   color: #888;
   padding: 8px 4px;
   font-style: italic;
+}
+
+/* ==========================================================
+   TABLETS
+========================================================== */
+@media (max-width: 1024px) {
+
+  aside {
+    width: 220px;
+    padding: 15px;
+  }
+
+  .mensajes h1 {
+    font-size: 2.2rem;
+  }
+
+  .chat {
+    max-width: 100%;
+  }
+
+  #mensajes-chat {
+    max-width: 100%;
+  }
+
+}
+
+/* ==========================================================
+   CELULARES
+========================================================== */
+@media (max-width: 768px) {
+
+  .contenedor {
+    flex-direction: column;
+  }
+
+  aside {
+    width: 100%;
+    height: auto;
+    min-height: auto;
+    padding: 15px;
+    gap: 10px;
+  }
+
+  aside h2 {
+    font-size: 18px;
+    text-align: center;
+  }
+
+  .historial-titulo {
+    text-align: center;
+  }
+
+  #historial-chats {
+    max-height: 150px;
+    overflow-y: auto;
+  }
+
+  main {
+    padding: 10px;
+    height: auto;
+    flex: 1;
+  }
+
+  .mensajes {
+    padding: 20px;
+  }
+
+  .mensajes h1 {
+    font-size: 2rem;
+  }
+
+  .mensajes p {
+    font-size: 14px;
+  }
+
+  .burbuja {
+    max-width: 90%;
+    font-size: 14px;
+  }
+
+  .chat {
+    width: 100%;
+    max-width: 100%;
+    padding-bottom: 10px;
+  }
+
+  .chat input {
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  .chat button {
+    padding: 12px 18px;
+    font-size: 14px;
+  }
+
+}
+
+/* ==========================================================
+   CELULARES PEQUEÑOS
+========================================================== */
+@media (max-width: 480px) {
+
+  aside h2 {
+    font-size: 16px;
+  }
+
+  .mensajes h1 {
+    font-size: 1.7rem;
+  }
+
+  .mensajes p {
+    font-size: 13px;
+  }
+
+  .chat {
+    flex-direction: column;
+  }
+
+  .chat input {
+    width: 100%;
+  }
+
+  .chat button {
+    width: 100%;
+  }
+
+  .burbuja {
+    max-width: 95%;
+    font-size: 13px;
+    padding: 10px 14px;
+  }
+
+  .chat-titulo {
+    font-size: 12px;
+  }
+
 }
