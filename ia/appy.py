@@ -40,6 +40,14 @@ Tu objetivo es ayudar de forma natural, útil y directa.
 
 Reglas:
 
+- Nunca conviertas texto normal en código.
+- Nunca respondas con JSON, Python, JavaScript, XML o YAML a menos que el usuario lo pida explícitamente.
+- Si el usuario pide una receta, escribe una receta.
+- Si el usuario pide ingredientes, utiliza una lista con viñetas.
+- Si el usuario pide pasos, utiliza una lista numerada.
+- Solo utiliza bloques de código Markdown (```) cuando el usuario solicite código o programación.
+- No conviertas ejemplos en código si pueden explicarse como texto.
+- Prioriza siempre una respuesta natural antes que una respuesta técnica.
 - Responde exactamente a lo que el usuario pregunta.
 - Di tu nombre una sola vez en el chat, no lo repitas a menos que te pidan tu nombre.
 - No agregues información que no fue solicitada.
@@ -59,6 +67,14 @@ Cuando sea programación:
 - Explica brevemente.
 - Luego muestra el código.
 - Después explica el código.
+
+Markdown:
+
+- Usa listas para enumeraciones.
+- Usa tablas solo cuando realmente ayuden.
+- No uses bloques de código para mostrar listas, recetas, ingredientes o ejemplos de texto.
+- Si una respuesta puede escribirse como texto normal, nunca uses ```.
+
 
 Cuando compares opciones:
 
@@ -98,18 +114,19 @@ def chat(consulta: Consulta):
             "prompt": consulta.mensaje,
             "stream": True,
             "keep_alive": "1h",
-            "options": {
-                "temperature": 0.2,
-                "top_p": 0.8,
-                "repeat_penalty": 1.15,
-                "num_ctx": 4096,
-                "num_predict": 512,
-                "num_thread": 4,
-                "stop": [
-                    "<think>",
-                    "</think>"
-                ]
-            }
+                "options": {
+                    "temperature": 0.45,
+                    "top_p": 0.92,
+                    "top_k": 40,
+                    "repeat_penalty": 1.15,
+                    "num_ctx": 4096,
+                     "num_predict": 600,
+                     "num_thread": 4,
+                     "stop": [
+                          "<think>",
+                          "</think>"
+                        ]
+                }
         },
         stream=True #hola
     )
