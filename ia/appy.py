@@ -109,7 +109,7 @@ def chat(consulta: Consulta):
                 ]
             }
         },
-        stream=True
+        stream=True #hola
     )
 
     def generar():
