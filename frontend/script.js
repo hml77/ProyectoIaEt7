@@ -5,8 +5,8 @@
 // ============================================================
 alert("ESTE ES EL SCRIPT DE /var/www/html");
 alert("ESTE ES EL SCRIPT DE frontend");
-const IP_SERVIDOR = "192.168.0.100";
-const URL_BACKEND = "http://192.168.0.100:8000/chat";
+const IP_SERVIDOR = "192.168.0.101";
+const URL_BACKEND = "http://192.168.0.101:8000/chat";
 
 // ============================================================
 // MEMORIA DE CHATS
