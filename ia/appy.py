@@ -1,11 +1,9 @@
 from fastapi import FastAPI
 from fastapi.responses import StreamingResponse
-import json
-from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
-import httpx
-import uvloop
-import asyncio
+from pydantic import BaseModel
+import json
+import requests
 
 asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
 
