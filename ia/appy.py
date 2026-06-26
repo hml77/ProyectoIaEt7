@@ -3,7 +3,8 @@ from fastapi.responses import StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import json
-import requests
+import asyncio
+import uvloop
 
 asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
 
