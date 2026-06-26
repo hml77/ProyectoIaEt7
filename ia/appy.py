@@ -2,15 +2,22 @@ from fastapi import FastAPI
 from fastapi.responses import StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+from fastapi import HTTPException
 
 import json
 import asyncio
 import uvloop
 import requests
+import threading
 
 asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
 
 app = FastAPI()
+
+
+
+MAX_USUARIOS = 3
+semaforo = threading.Semaphore(MAX_USUARIOS)
 
 # =====================================
 # CORS
@@ -108,6 +115,29 @@ def inicio():
 # CHAT
 # =====================================
 @app.post("/chat")
+def chat(consulta: Consulta):
+
+    if not semaforo.acquire(blocking=False):
+        raise HTTPException(
+            status_code=429,
+            detail="Servidor ocupado. Intente nuevamente."
+        )
+
+    try:
+        respuesta = requests.post(
+            "http://localhost:11434/api/generate",
+            json={
+                "model": "qwen2.5:3b",
+                "prompt": consulta.mensaje,
+                "stream": False
+            }
+        )
+
+        return respuesta.json()
+
+    finally:
+        semaforo.release()
+
 def chat(consulta: Consulta):
 
     respuesta = requests.post(
