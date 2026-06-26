@@ -3,8 +3,8 @@
 // Cuando el equipo servidor te dé la IP, reemplazala acá abajo
 // Ejemplo: const IP_SERVIDOR = "192.168.1.105";
 // ============================================================
-const IP_SERVIDOR = "192.168.0.101";
-const URL_BACKEND = "http://192.168.0.101:8000/chat";
+const IP_SERVIDOR = "192.168.0.100";
+const URL_BACKEND = "http://192.168.0.100:8000/chat";
 
 // ============================================================
 // MEMORIA DE CHATS
