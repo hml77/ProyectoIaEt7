@@ -2,9 +2,11 @@ from fastapi import FastAPI
 from fastapi.responses import StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+
 import json
 import asyncio
 import uvloop
+import requests
 
 asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
 
@@ -49,7 +51,7 @@ Reglas:
 - Nunca escribas introducciones innecesarias.
 - No repitas la pregunta.
 - No expliques conceptos que el usuario no pidió.
-- No inventes información.
+- No inventar información.
 - Si no sabes a que se refiere el usuario solo responde "Lo siento, no cuento con esa información".
 
 Cuando sea programación:
