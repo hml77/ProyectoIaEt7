@@ -3,8 +3,6 @@
 // Cuando el equipo servidor te dé la IP, reemplazala acá abajo
 // Ejemplo: const IP_SERVIDOR = "192.168.1.105";
 // ============================================================
-alert("ESTE ES EL SCRIPT DE /var/www/html");
-alert("ESTE ES EL SCRIPT DE frontend");
 const IP_SERVIDOR = "192.168.0.101";
 const URL_BACKEND = "http://192.168.0.101:8000/chat";
 
@@ -201,42 +199,71 @@ function quitarCargando() {
 async function enviarMensaje() {
   const input = document.getElementById("mensaje");
   const texto = input.value.trim();
+
   if (!texto) return;
 
   agregarMensaje(texto, "usuario");
   input.value = "";
 
-  document.getElementById("enviar").disabled = true;
-  document.getElementById("enviar").textContent = "...";
+  document.getElementById("pantalla-bienvenida").style.display = "none";
 
-  mostrarCargando();
+  const contenedor = document.getElementById("mensajes-chat");
+
+  const burbuja = document.createElement("div");
+  burbuja.classList.add("burbuja", "ia");
+  contenedor.appendChild(burbuja);
+
+  document.getElementById("enviar").disabled = true;
 
   try {
-    const respuesta = await fetch(URL_BACKEND, {
+
+    const response = await fetch(URL_BACKEND, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ mensaje: texto })
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        mensaje: texto
+      })
     });
 
-    quitarCargando();
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder();
 
-    if (!respuesta.ok) throw new Error("Error del servidor");
+    let respuestaCompleta = "";
 
-    const datos = await respuesta.json();
-    agregarMensaje(datos.respuesta, "ia");
+    while (true) {
 
-  } catch (error) {
-    quitarCargando();
-    agregarMensaje("❌ No funca maestro", "ia");
-    console.error("Error:", error);
+      const { done, value } = await reader.read();
+
+      if (done) break;
+
+      const chunk = decoder.decode(value, { stream: true });
+
+      respuestaCompleta += chunk;
+
+      burbuja.innerHTML = marked.parse(respuestaCompleta);
+
+      contenedor.scrollTop = contenedor.scrollHeight;
+    }
+
+    chatActual.push({
+      texto: respuestaCompleta,
+      tipo: "ia"
+    });
+
+    guardarChatActual();
+    renderizarHistorial();
+
+  } catch (err) {
+
+    burbuja.innerHTML = "❌ Error de conexión";
+
+    console.error(err);
+
   }
 
-  // Guardar automáticamente después de cada respuesta
-  guardarChatActual();
-  renderizarHistorial();
-
   document.getElementById("enviar").disabled = false;
-  document.getElementById("enviar").textContent = "Enviar";
 }
 
 // ============================================================
