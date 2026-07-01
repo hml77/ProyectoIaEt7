@@ -16,26 +16,6 @@ let chatActual = [];
 let chatActivoIndex = null; // null = chat nuevo sin guardar todavía
 
 // ============================================================
-// VERIFICAR CONEXIÓN AL ARRANCAR
-// ============================================================
-//async function verificarServidor() {
-//try {
-//const respuesta = await fetch("http://192.168.0.100:8000/");
-//if (respuesta.ok) {
-//document.getElementById("estado-servidor").textContent = "🟢 Servidor En Línea";
-//document.getElementById("estado-servidor").style.background = "#B8D4B0";
-//} else {
-//throw new Error();
-//}
-//} catch {
-//document.getElementById("estado-servidor").textContent = "🔴 Servidor Desconectado";
-//document.getElementById("estado-servidor").style.background = "#E3C3C3";
-//}
-//}
-
-//verificarServidor();
-
-// ============================================================
 // GUARDAR Y CARGAR CHATS EN EL NAVEGADOR
 // ============================================================
 function guardarChats() {
@@ -286,4 +266,4 @@ document.getElementById("mensaje").addEventListener("keydown", (e) => {
 
 // Cargar historial al abrir la página
 renderizarHistorial();
-//cooperativa
+//cooperativa tecno-sadosky
