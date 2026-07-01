@@ -127,9 +127,9 @@ def chat(consulta: Consulta):
         respuesta = requests.post(
             "http://localhost:11434/api/generate",
             json={
-                "model": "qwen2.5:3b",
+                "model": "phi3:mini",
                 "prompt": consulta.mensaje,
-                "stream": False
+                "stream": True
             }
         )
 
