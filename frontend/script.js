@@ -286,3 +286,4 @@ document.getElementById("mensaje").addEventListener("keydown", (e) => {
 
 // Cargar historial al abrir la página
 renderizarHistorial();
+//cooperativa

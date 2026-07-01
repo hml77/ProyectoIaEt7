@@ -104,8 +104,6 @@ Adapta siempre la longitud de la respuesta a la complejidad de la pregunta.
 # MODELO
 # =====================================
 
-from typing import List
-
 class Mensaje(BaseModel):
     role: str
     content: str
@@ -137,68 +135,57 @@ def chat(consulta: Consulta):
         )
 
     try:
-
         respuesta = requests.post(
-    "http://localhost:11434/api/chat",
-    json={
-        "model": "phi3:mini",
-        "messages": [
-            {
-                "role": "system",
-                "content": SYSTEM_PROMPT
-            },
-            *[
-                {
-                    "role": m.role,
-                    "content": m.content
+            "http://localhost:11434/api/chat",
+            json={
+                "model": MODELO,
+                "messages": [
+                    {
+                        "role": "system",
+                        "content": SYSTEM_PROMPT
+                    },
+                    *[
+                        {
+                            "role": m.role,
+                            "content": m.content
+                        }
+                        for m in consulta.mensajes
+                    ]
+                ],
+                "stream": True,
+                "keep_alive": "1h",
+                "options": {
+                    "temperature": 0.45,
+                    "top_p": 0.92,
+                    "top_k": 40,
+                    "repeat_penalty": 1.15,
+                    "num_ctx": 4096,
+                    "num_predict": 600,
+                    "num_thread": 4,
+                    "stop": [
+                        "<think>",
+                        "</think>"
+                    ]
                 }
-                for m in consulta.mensajes
-            ]
-        ],
-        "stream": True,
-        "keep_alive": "1h",
-        "options": {
-            "temperature": 0.45,
-            "top_p": 0.92,
-            "top_k": 40,
-            "repeat_penalty": 1.15,
-            "num_ctx": 4096,
-            "num_predict": 600,
-            "num_thread": 4,
-            "stop": [
-                "<think>",
-                "</think>"
-            ]
-        }
-    },
-    stream=True,
-    timeout=300
-)
+            },
+            stream=True,
+            timeout=300
+        )
+        
         respuesta.raise_for_status()
 
         def generar():
-
-    for linea in respuesta.iter_lines():
-
-        if not linea:
-            continue
-
-        try:
-
-            dato = json.loads(linea.decode())
-
-            if "message" in dato:
-                yield dato["message"]["content"]
-
-            if dato.get("done", False):
-                break
-
-        except json.JSONDecodeError:
-            continue
+            for linea in respuesta.iter_lines():
+                if not linea:
+                    continue
+                try:
+                    dato = json.loads(linea.decode("utf-8"))
+                    
+                    if "message" in dato:
+                        yield dato["message"]["content"]
 
                     if dato.get("done", False):
                         break
-
                 except json.JSONDecodeError:
                     continue
 
@@ -208,12 +195,10 @@ def chat(consulta: Consulta):
         )
 
     except requests.exceptions.RequestException as e:
-
         raise HTTPException(
             status_code=500,
             detail=f"No se pudo conectar con Ollama: {e}"
         )
 
     finally:
-
         semaforo.release()
