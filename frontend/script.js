@@ -216,6 +216,15 @@ async function enviarMensaje() {
   document.getElementById("enviar").disabled = true;
 
   try {
+    const mensajes = [];
+
+    // Convertir el historial al formato de Ollama
+    for (const m of chatActual) {
+      mensajes.push({
+        role: m.tipo === "usuario" ? "user" : "assistant",
+        content: m.texto
+      });
+    }
 
     const response = await fetch(URL_BACKEND, {
       method: "POST",
@@ -223,9 +232,14 @@ async function enviarMensaje() {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        mensaje: texto
+        mensajes: mensajes
       })
     });
+
+    // Verificación de errores del servidor
+    if (!response.ok) {
+      throw new Error(await response.text());
+    }
 
     const reader = response.body.getReader();
     const decoder = new TextDecoder();
@@ -233,7 +247,6 @@ async function enviarMensaje() {
     let respuestaCompleta = "";
 
     while (true) {
-
       const { done, value } = await reader.read();
 
       if (done) break;
@@ -256,11 +269,8 @@ async function enviarMensaje() {
     renderizarHistorial();
 
   } catch (err) {
-
-    burbuja.innerHTML = "❌ Error de conexión";
-
+    burbuja.innerHTML = "❌ Error de conexión o del servidor";
     console.error(err);
-
   }
 
   document.getElementById("enviar").disabled = false;
@@ -276,4 +286,3 @@ document.getElementById("mensaje").addEventListener("keydown", (e) => {
 
 // Cargar historial al abrir la página
 renderizarHistorial();
-// Actualizado lol

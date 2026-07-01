@@ -2,6 +2,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.responses import StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+from typing import List
 
 import asyncio
 import uvloop
@@ -103,8 +104,14 @@ Adapta siempre la longitud de la respuesta a la complejidad de la pregunta.
 # MODELO
 # =====================================
 
+from typing import List
+
+class Mensaje(BaseModel):
+    role: str
+    content: str
+
 class Consulta(BaseModel):
-    mensaje: str
+    mensajes: List[Mensaje]
 
 # =====================================
 # API
@@ -132,45 +139,62 @@ def chat(consulta: Consulta):
     try:
 
         respuesta = requests.post(
-            "http://localhost:11434/api/generate",
-            json={
-                "model": MODELO,
-                "system": SYSTEM_PROMPT,
-                "prompt": consulta.mensaje,
-                "stream": True,
-                "keep_alive": "1h",
-                "options": {
-                    "temperature": 0.45,
-                    "top_p": 0.92,
-                    "top_k": 40,
-                    "repeat_penalty": 1.15,
-                    "num_ctx": 4096,
-                    "num_predict": 600,
-                    "num_thread": 4,
-                    "stop": [
-                        "<think>",
-                        "</think>"
-                    ]
-                }
+    "http://localhost:11434/api/chat",
+    json={
+        "model": "phi3:mini",
+        "messages": [
+            {
+                "role": "system",
+                "content": SYSTEM_PROMPT
             },
-            stream=True,
-            timeout=300
-        )
-
+            *[
+                {
+                    "role": m.role,
+                    "content": m.content
+                }
+                for m in consulta.mensajes
+            ]
+        ],
+        "stream": True,
+        "keep_alive": "1h",
+        "options": {
+            "temperature": 0.45,
+            "top_p": 0.92,
+            "top_k": 40,
+            "repeat_penalty": 1.15,
+            "num_ctx": 4096,
+            "num_predict": 600,
+            "num_thread": 4,
+            "stop": [
+                "<think>",
+                "</think>"
+            ]
+        }
+    },
+    stream=True,
+    timeout=300
+)
         respuesta.raise_for_status()
 
         def generar():
 
-            for linea in respuesta.iter_lines():
+    for linea in respuesta.iter_lines():
 
-                if not linea:
-                    continue
+        if not linea:
+            continue
 
-                try:
-                    dato = json.loads(linea.decode("utf-8"))
+        try:
 
-                    if "response" in dato:
-                        yield dato["response"]
+            dato = json.loads(linea.decode())
+
+            if "message" in dato:
+                yield dato["message"]["content"]
+
+            if dato.get("done", False):
+                break
+
+        except json.JSONDecodeError:
+            continue
 
                     if dato.get("done", False):
                         break
